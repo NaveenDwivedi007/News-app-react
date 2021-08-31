@@ -1,0 +1,43 @@
+.grid-card{
+    width: 200px;
+    background-color: white;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 0 10px 2px rgb(63, 63, 63);
+    border-radius: 5px;
+}
+.grid-card>*{
+    margin: 10px 0;
+    padding: 0 0;
+}
+.grid-card> .btn{
+    position: absolute;
+    background-color: transparent;
+    border: none;
+    top: 0;
+    right: 20px;
+    font-size: 18px;
+    color: red;
+}
+.warp{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.warp.title{
+    font-weight: bold;
+}
+.warp.summary{
+    font-size: 14px;
+}
+.date{
+    color: gray;
+    font-size: 12px;
+}
+.grid-img{
+    height: 150px;
+    width: 200px;
+    
+}
