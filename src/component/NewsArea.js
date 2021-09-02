@@ -1,20 +1,37 @@
 import React, { useEffect, useState } from 'react'
 // import Grid from '../view/Grid';
-import List from '../view/list';
 import Modal from 'react-modal';
 import './NewsArea.css';
-import { useDispatch } from 'react-redux';
-let data =  {
-    "id": 40806,
-    "title": "Episode 6: Kyle Tobener - VP and Head of Security & IT at Copado",
-    "summary": "Kyle is a VP and Head of Security & IT at Copado. Kyle, Martin, and Chris talk security careers and share their own personal experiences. Recorded July 2021. Disclaimer: The views expressed by the hosts and guests are their own and their participation on the podcast does not imply an endorsement of them or any entity they represent.",
-    "link": "https://media.first.org/podcasts/FIRST_IMPRESSIONS-KyleTobener.mp3",
-    "published": "Fri, 06 Aug 2021 00:00:00 GMT"
-  }
-const NewsArea=()=>{
-    // eslint-disable-next-line
-    const [news,setNews] = useState([])
-    const [modalOpen,setModalOpen]= useState(true)
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+    add_page_detail, 
+    change_page, 
+    delete_news_article, 
+    get_news_api_data, 
+    modal_link, 
+    NEWS_GRID, 
+    NEWS_LIST, 
+    next_page,
+    prev_page
+} from '../redux/action';
+import Grid from '../view/Grid';
+import List from '../view/list.js';
+
+
+
+
+const NewsArea=({pageArr})=>{
+    const newsView = useSelector(state => state.view)
+    const feedBAck_status = useSelector(state => state.feedBack)
+    const modalUrl = useSelector(state => state.modalLink)
+    const currentPageNumber = useSelector(state=>state.currentPage)
+    const pageNumber = useSelector(state=>state.currentPage)
+    const pageOne = useSelector(state=>state.pageOne)
+    const pageTwo = useSelector(state=>state.pageTwo)
+    const pageThree = useSelector(state=>state.pageThree)
+    const [newsArr,setNewsArr] = useState(pageOne)
+    const [modalOpen,setModalOpen]= useState(false)
+    // const [url,setUrl] = useState(null)
     const modalStyle ={
         content:{
             backgroundColor: 'transparent',
@@ -24,36 +41,171 @@ const NewsArea=()=>{
     }
     
     const dispatch = useDispatch()
-    useEffect(()=>{
-        apiCall()
-    },    // eslint-disable-next-line
-    []) 
-
     async function apiCall(){
         const res = await fetch("https://api.first.org/data/v1/news")
         const json= await res.json()
-        setNews(json.data)
+        console.log(json);
+        dispatch(get_news_api_data(json))
+        dispatch(add_page_detail(json.data))
     }
-
     const toggleModal =()=>{
         setModalOpen(!modalOpen)
     }
+    const myModal = (link)=>{
+        toggleModal()
+        console.log("hello");
+      return  dispatch(modal_link(link))
+    }
+    const deleteArticle=(arr,index)=>{
+          arr.splice(index,1)
+          setNewsArr(arr)
+          return dispatch(delete_news_article(index))
+      }
+    useEffect(()=>{
+        apiCall()
+        
+    },    // eslint-disable-next-line
+    []) 
 
-    return(
-        <div style={{width:'100%'}}>
-        <h1 onClick={()=>dispatch(()=>{return {type:'try'}})} >try</h1>
-            <List title={data.title} summary={data.summary} published={data.published} />
+
+    useEffect(()=>{
+        if (pageNumber === 1) {
+        return setNewsArr(pageOne)
+        }
+        if (pageNumber === 2) {
+        return setNewsArr(pageTwo)
+        }
+        if (pageNumber === 3) {
+        return setNewsArr(pageThree)
+        }
+    },[pageNumber, pageOne, pageThree, pageTwo])
+   
+  
+  
+
+    if (newsView === NEWS_LIST) {
+        return(
+            <div className={feedBAck_status ? "news-container" : ""}>
+                <div className="list-news-container" >
+                    {newsArr.map((x,i)=>{
+                        return(
+                            <List 
+                            key={x.id}
+                            title={x.title}
+                            summary={x.summary}
+                            published={x.published}
+                            deletelist={()=>deleteArticle(newsArr,i)}
+                            myModal={()=>myModal(x.link)}
+                            />
+                        )
+                    })}
+                </div>
+
+                <div className="btn-container">
+                        <button 
+                        className="change-page-btn" 
+                        onClick={()=>dispatch(prev_page(currentPageNumber-1))}
+                        >
+                        {"<<"}</button>
+                        <button 
+                        className="change-page-btn" 
+                        style={currentPageNumber===1 ? {backgroundColor:"white"} : null}
+                        onClick={()=>dispatch(change_page(1))}
+                        >
+                        1</button>
+                        <button
+                        style={currentPageNumber===2 ? {backgroundColor:"white"} : null}
+                        className="change-page-btn"
+                        onClick={()=>dispatch(change_page(2))}
+                        >
+                        2</button>
+                        <button
+                        style={currentPageNumber===3 ? {backgroundColor:"white"} : null}
+                        className="change-page-btn"
+                        onClick={()=>dispatch(change_page(3))}
+                        >
+                        3</button>
+                        <button 
+                        className="change-page-btn" 
+                        onClick={()=>dispatch(next_page(currentPageNumber+1))}
+                        >
+                        {">>"} </button>
+                </div>
+                <Modal
+                isOpen={modalOpen}
+                style={modalStyle}
+                >
+                    <div className='modal-container' >
+                        <button onClick={toggleModal} className='modal-btn'>X</button>
+                        <iframe className='modal-page' title='article detail' src={modalUrl} />
+                    </div>
+                </Modal>
+                
+            </div>
+        )
+    }else if (newsView === NEWS_GRID)    
+    {
+        return(
+            <div className={feedBAck_status ? "news-container" : ""} >
+                <div className="grid-news-container">
+                    {newsArr.map((x,i)=>{
+                        return(
+                            <Grid 
+                            title={x.title}
+                            summary={x.summary}
+                            published={x.published}
+                            deletelist={()=>dispatch(delete_news_article(i))}
+                            myModal={()=>myModal(x.link)}
+                            />
+                        )
+                    })}
+                </div>
+                <div className="btn-container">
+                <button 
+                className="change-page-btn" 
+                onClick={()=>dispatch(prev_page(currentPageNumber-1))}
+                >
+                {"<<"}</button>
+                <button 
+                className="change-page-btn" 
+                style={currentPageNumber===1 ? {backgroundColor:"white"} : null}
+                onClick={()=>dispatch(change_page(1))}
+                >
+                1</button>
+                <button
+                style={currentPageNumber===2 ? {backgroundColor:"white"} : null}
+                className="change-page-btn"
+                onClick={()=>dispatch(change_page(2))}
+                >
+                2</button>
+                <button
+                style={currentPageNumber===3 ? {backgroundColor:"white"} : null}
+                className="change-page-btn"
+                onClick={()=>dispatch(change_page(3))}
+                >
+                3</button>
+                <button 
+                className="change-page-btn" 
+                onClick={()=>dispatch(next_page(currentPageNumber+1))}
+                >
+                {">>"} </button>
+        </div>
+
+
             <Modal
              isOpen={modalOpen}
              style={modalStyle}
              >
                 <div className='modal-container' >
                     <button onClick={toggleModal} className='modal-btn'>X</button>
-                    <iframe className='modal-page' title='article detail' src='https://en.wikipedia.org/wiki/Hydrogen' />
+                    <iframe className='modal-page' title='article detail' src={modalUrl}  />
                 </div>
             </Modal>
+            
+
         </div>
-    )
+        )
+    }
 }
 
 export default NewsArea

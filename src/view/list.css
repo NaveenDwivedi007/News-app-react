@@ -4,6 +4,7 @@
     height: 10ch;
     border-radius: 10px;
     position: relative;
+    margin: 10px 0;
 }
 .list-card-body{
     display: flex;

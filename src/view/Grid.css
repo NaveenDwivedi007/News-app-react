@@ -1,21 +1,24 @@
 .grid-card{
     width: 200px;
+    max-height: 250px;
+    min-height: 250px;
     background-color: white;
-    padding: 20px;
+    margin: 10px 10px;
+    padding: 10px;
     position: relative;
     box-shadow: 0 0 10px 2px rgb(63, 63, 63);
     border-radius: 5px;
 }
 .grid-card>*{
-    margin: 10px 0;
+    margin: 0;
     padding: 0 0;
 }
 .grid-card> .btn{
     position: absolute;
     background-color: transparent;
     border: none;
-    top: 0;
-    right: 20px;
+    top: -5px;
+    right: 10px;
     font-size: 18px;
     color: red;
 }
@@ -37,7 +40,14 @@
     font-size: 12px;
 }
 .grid-img{
-    height: 150px;
+    position: absolute;
+    top: 115px;
+    border: 2px;
+    max-height: 150px;
     width: 200px;
     
+}
+h5,p{
+    padding: 2px 0;
+    margin: 0;
 }

@@ -1,0 +1,52 @@
+.feedback-form-container{
+    display: flex;
+    flex-direction: column;
+    background-color:#C3C3C1;
+    /* background-color: blue; */
+    width: 100%;
+    height: 95vh;
+    padding: 20px;
+    box-shadow:  10px 0 15px -10px  #27221E;
+    border-radius: 0px 20px 20px 0px;
+}
+label{
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+input{
+    width: 400px;
+    max-width: 400px;
+    height: 30px;
+    border: none;
+    box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.836);
+    border-radius: 5px;
+    padding-left: 10px;
+    margin-top: 5px;
+}
+textarea{
+    width: 400px;
+    max-width: 400px;
+    border: none;
+    box-shadow: 0 0 5px 0 rgba(41, 41, 41, 0.836);
+    border-radius: 5px;
+    padding-left: 10px;
+}
+.phone-number-input{
+    display: flex;
+    max-width: 400px;
+}
+.country-code{
+    width: 50px;
+    margin-right: 15px;
+}
+.feedback-btn{
+    padding: 10px;
+    border: none;
+    font-size: 18px;
+    border-radius: 5px;
+    width: 60%;
+    margin-left: 75px;
+    background-color: #F24469;
+    
+}
