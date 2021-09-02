@@ -1,5 +1,5 @@
+// deleting article not rendering and need to change page to reflect the deleted article
 import React, { useEffect, useState } from 'react'
-// import Grid from '../view/Grid';
 import Modal from 'react-modal';
 import './NewsArea.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +31,6 @@ const NewsArea=({pageArr})=>{
     const pageThree = useSelector(state=>state.pageThree)
     const [newsArr,setNewsArr] = useState(pageOne)
     const [modalOpen,setModalOpen]= useState(false)
-    // const [url,setUrl] = useState(null)
     const modalStyle ={
         content:{
             backgroundColor: 'transparent',
@@ -53,7 +52,6 @@ const NewsArea=({pageArr})=>{
     }
     const myModal = (link)=>{
         toggleModal()
-        console.log("hello");
       return  dispatch(modal_link(link))
     }
     const deleteArticle=(arr,index)=>{
@@ -151,6 +149,7 @@ const NewsArea=({pageArr})=>{
                     {newsArr.map((x,i)=>{
                         return(
                             <Grid 
+                            key={x.id}
                             title={x.title}
                             summary={x.summary}
                             published={x.published}
