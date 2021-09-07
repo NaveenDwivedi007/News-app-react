@@ -20,7 +20,7 @@ const initialState = {
     pageTwo:[],
     pageThree:[],
     modalLink:null,
-    feedBack:true
+    feedBack:false
 }
 
 

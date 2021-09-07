@@ -9,7 +9,7 @@ import FeedBack from './Feedback';
 
 const Sidebar=()=>{
     const newsView = useSelector(state=>state.view)
-    const [feedbackStatus,setFeedbackStatus]= useState(true)
+    const [feedbackStatus,setFeedbackStatus]= useState(false)
     const dispatch = useDispatch()
     const viewChange = ()=>{
         if (newsView === NEWS_GRID) {

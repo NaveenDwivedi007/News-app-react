@@ -55,6 +55,7 @@ const NewsArea=({pageArr})=>{
       return  dispatch(modal_link(link))
     }
     const deleteArticle=(index)=>{
+        setNewsArr([])
           return dispatch(delete_news_article(index))
       }
     useEffect(()=>{
@@ -74,7 +75,8 @@ const NewsArea=({pageArr})=>{
         if (pageNumber === 3) {
         return setNewsArr(pageThree)
         }
-    },[pageNumber, pageOne, pageThree, pageTwo])
+        setNewsArr(newsArr)
+    },[newsArr, pageNumber, pageOne, pageThree, pageTwo])
    
   
   
@@ -151,7 +153,7 @@ const NewsArea=({pageArr})=>{
                             title={x.title}
                             summary={x.summary}
                             published={x.published}
-                            deletelist={()=>dispatch(delete_news_article(i))}
+                            deletelist={()=>deleteArticle(i)}
                             myModal={()=>myModal(x.link)}
                             />
                         )

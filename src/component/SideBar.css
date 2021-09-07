@@ -75,17 +75,21 @@
   height: 100vh;
   top: 0;
   opacity: 0 ;
- 
   transform: translateX(-35%);
-  transition: all .3s ease-out;
+  transition: all .3s ease-in-out;
   z-index: 9;
 }
 .feedback-container.shift{
   transform: translateX(60%);
   opacity: 1;
-  transition: all .3s ease-out;
+  transition: all .3s ease-in-out;
+
   
 }
 .card-container{
+  height: 100%;
+  width: 100%;
   z-index: 10;
+  background-color:#C3C3C1;
+
 }
