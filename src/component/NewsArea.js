@@ -35,7 +35,8 @@ const NewsArea=({pageArr})=>{
         content:{
             backgroundColor: 'transparent',
             overflow:'hidden',
-            border:'none'
+            border:'none',
+            
         }
     }
     
@@ -43,7 +44,6 @@ const NewsArea=({pageArr})=>{
     async function apiCall(){
         const res = await fetch("https://api.first.org/data/v1/news")
         const json= await res.json()
-        console.log(json);
         dispatch(get_news_api_data(json))
         dispatch(add_page_detail(json.data))
     }

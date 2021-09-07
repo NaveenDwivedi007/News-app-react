@@ -1,5 +1,6 @@
 .news-container{
    filter: blur(1rem);
+   z-index: -2;
 }
 .list-news-container{
     width: 100%;

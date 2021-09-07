@@ -45,7 +45,9 @@ const FeedBack = ()=>{
                 {
                     country_list.map((x)=>{
                         return(
-                            <option value={x}/>
+                            <option
+                            key={x}
+                             value={x}/>
                         )
                     })
                 }
