@@ -54,9 +54,7 @@ const NewsArea=({pageArr})=>{
         toggleModal()
       return  dispatch(modal_link(link))
     }
-    const deleteArticle=(arr,index)=>{
-          arr.splice(index,1)
-          setNewsArr(arr)
+    const deleteArticle=(index)=>{
           return dispatch(delete_news_article(index))
       }
     useEffect(()=>{
@@ -92,7 +90,7 @@ const NewsArea=({pageArr})=>{
                             title={x.title}
                             summary={x.summary}
                             published={x.published}
-                            deletelist={()=>deleteArticle(newsArr,i)}
+                            deletelist={()=>deleteArticle(i)}
                             myModal={()=>myModal(x.link)}
                             />
                         )

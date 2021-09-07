@@ -45,6 +45,7 @@
     ]
   },
   "devDependencies": {
+    "homepage":"https://naveendwivedi007.github.io/News-app-react/",
     "gh-pages": "^3.2.3"
   }
 }

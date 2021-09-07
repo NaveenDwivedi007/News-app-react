@@ -76,13 +76,16 @@
   top: 0;
   opacity: 0 ;
  
-  transform: translateX(-150%);
+  transform: translateX(-35%);
   transition: all .3s ease-out;
-  z-index: 10;
+  z-index: 9;
 }
 .feedback-container.shift{
   transform: translateX(60%);
   opacity: 1;
   transition: all .3s ease-out;
   
+}
+.card-container{
+  z-index: 10;
 }
